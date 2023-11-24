@@ -1,0 +1,276 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "";
+}
+
+
+
+<!DOCTYPE html>
+
+<html lang="en"
+      class="light-style customizer-hide"
+      dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="~/assets/"
+      data-template="horizontal-menu-template-no-customizer">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Login</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="~/assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet" />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="~/assets/vendor/fonts/tabler-icons.css" />
+    <link rel="stylesheet" href="~/assets/vendor/fonts/flag-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="~/assets/vendor/css/rtl/core.css" />
+    <link rel="stylesheet" href="~/assets/vendor/css/rtl/theme-default.css" />
+    <link rel="stylesheet" href="~/assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="~/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="~/assets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="~/assets/vendor/libs/typeahead-js/typeahead.css" />
+    <!-- Vendor -->
+    <link rel="stylesheet" href="~/assets/vendor/libs/formvalidation/dist/css/formValidation.min.css" />
+
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="~/assets/vendor/css/pages/page-auth.css" />
+    <!-- Helpers -->
+    <script src="~/assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="~/assets/js/config.js"></script>
+</head>
+
+<body>
+    <!-- Content -->
+
+    <div class="authentication-wrapper authentication-cover authentication-bg">
+        <div class="authentication-inner row">
+            <!-- /Left Text -->
+            
+            <!-- /Left Text -->
+            <!-- Login -->
+            <div class="d-flex col-12 col-lg-8 align-items-center p-sm-5 p-4">
+
+                <img src="~/logo.jpg" />
+
+                <div class="w-px-400 mx-auto">
+                    <!-- Logo -->
+                    <div class="app-brand mb-4">
+                       
+                    </div>
+                    <!-- /Logo -->
+                    <h3 class="mb-1 fw-bold">Welcome to NCS</h3>
+                    <p class="mb-4">Please login to your account</p>
+
+                    <form id="account" method="post">
+                        <div class="mb-3">
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <p>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            <p>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            <p>
+
+                            <label asp-for="Input.Email" class="form-label">Email</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="email"
+                                   asp-for="Input.Email"
+                                   placeholder="Enter your email or username"
+                                   autofocus />
+
+                        </div>
+                        <div class="mb-3 form-password-toggle">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label" asp-for="Input.Password">Password</label>
+                                <a href="auth-forgot-password-cover.html">
+                                    <small>Forgot Password?</small>
+                                </a>
+                            </div>
+                            <div class="input-group input-group-merge">
+                                <input type="password"
+                                       id="password"
+                                       class="form-control"
+                                       asp-for="Input.Password"
+                                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                       aria-describedby="password" />
+
+                                <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
+                            </div>
+                        </div>
+                        @* <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="remember-me" />
+                                <label class="form-check-label" for="remember-me"> Remember Me </label>
+                            </div>
+                        </div> *@
+                        <button class="btn btn-primary d-grid w-100">Login</button>
+                    </form>
+
+                    @* <p class="text-center">
+                        <span>New on our platform?</span>
+                        <a href="auth-register-cover.html">
+                            <span>Create an account</span>
+                        </a>
+                    </p> *@
+
+                    @* <div class="divider my-4">
+                        <div class="divider-text">or</div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
+                            <i class="tf-icons fa-brands fa-facebook-f fs-5"></i>
+                        </a>
+
+                        <a href="javascript:;" class="btn btn-icon btn-label-google-plus me-3">
+                            <i class="tf-icons fa-brands fa-google fs-5"></i>
+                        </a>
+
+                        <a href="javascript:;" class="btn btn-icon btn-label-twitter">
+                            <i class="tf-icons fa-brands fa-twitter fs-5"></i>
+                        </a>
+                    </div> *@
+                </div>
+            </div>
+            <!-- /Login -->
+        </div>
+    </div>
+
+    <!-- / Content -->
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="~/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="~/assets/vendor/libs/popper/popper.js"></script>
+    <script src="~/assets/vendor/js/bootstrap.js"></script>
+    <script src="~/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="~/assets/vendor/libs/node-waves/node-waves.js"></script>
+
+    <script src="~/assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="~/assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="~/assets/vendor/libs/typeahead-js/typeahead.js"></script>
+
+    <script src="~/assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+    <!-- Vendors JS -->
+    <script src="~/assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+    <script src="~/assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+    <script src="~/assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="~/assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="~/assets/js/pages-auth.js"></script>
+</body>
+</html>
+
+@*
+
+<div class="row">
+
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+             <h3>Use another service to log in.</h3>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                            about setting up this ASP.NET application to support logging in via external services</a>.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins!)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+
+            <img src="~/img/logo.jpg" />
+
+        </section>
+    </div>
+
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <h2>Login </h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Input.Email" class="form-label"></label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                    <label asp-for="Input.Password" class="form-label"></label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div>
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe" class="form-label">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                </div>
+                <div>
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    </p>
+                    <p>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+   *@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

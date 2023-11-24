@@ -1,0 +1,187 @@
+﻿@{
+    ViewData["Title"] = "New Entry";
+    Layout = "_Dashboard";
+}
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.EntityFrameworkCore;
+@using ncs1.Models.Entry;
+@model Entry;
+@{
+    @inject UserManager<MyUser> UserManager;
+    @inject ncs1.Data.ApplicationDbContext _context;
+
+    var OfficialName = "";
+    var SvcNo = "";
+    var CommandName = "";
+    var CommandGuid = Guid.NewGuid();
+    var CommandId = "";
+
+    var StationName = "";
+    var StationGuid = Guid.NewGuid();
+    var StationId = "";
+
+    if (User.Identity?.IsAuthenticated ?? false)
+    {
+        OfficialName = UserManager.Users.FirstOrDefault(m => m.UserName == User.Identity.Name).OfficialName;
+        SvcNo = UserManager.Users.FirstOrDefault(m => m.UserName == User.Identity.Name).SvcNo;
+        
+        var user = UserManager.Users.FirstOrDefault(m => m.UserName == User.Identity.Name);
+        if (user != null)
+        {
+            if (user.Command.HasValue)
+            {
+                // Assign the value of the nullable Guid to the non-nullable Guid
+                CommandGuid = user.Command.Value;
+                CommandName = _context.CommandNgs.Where(m => m.Id == CommandGuid).Select(m => m.CommandName).FirstOrDefault();
+
+            }
+         
+            if (user.Station.HasValue)
+            {
+                // Assign the value of the nullable Guid to the non-nullable Guid
+                StationGuid = user.Station.Value;
+                StationName = _context.StationNgs.Where(m => m.Id == StationGuid).Select(m => m.StationName).FirstOrDefault();
+
+            }
+        }
+        else
+        {
+            // Handle the case where no user with the specified UserName is found
+            CommandName = "Unknown";
+            StationName = "Unknown Station";
+        }
+
+
+        
+    }
+
+
+}
+
+<form asp-controller="Entry" asp-action="AddEntry" method="post">
+<div class="row invoice-add">
+    <!-- Invoice Add-->
+    <div class="col-lg-12 col-12 mb-lg-0 mb-4">
+        <div class="card invoice-preview-card">
+            <div class="card-body">
+                <div class="row m-sm-4 m-0">
+                    <div class="col-md-4 mb-md-0 mb-4 ps-0">
+                        <div class="d-flex svg-illustration mb-4 gap-2 align-items-center">
+                            <img src="~/img/write-icon.png" width="128px" height="128px" />
+
+                            <span class="app-brand-text fw-bold fs-4"> New Entry </span>
+                        </div>
+@*                         <p class="mb-2">Inserting new entry into station diary</p>
+ *@                        
+                    </div>
+                    <div class="col-md-8">
+                        <dl class="row mb-2">
+                            <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
+                                <span class="h4 text-capitalize mb-0 text-nowrap">User</span>
+                            </dt>
+                            <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
+                                <div class="input-group input-group-merge disabled">
+                                    <span class="input-group-text">#</span>
+                                    <input type="text" class="form-control" disabled="" placeholder="3905" value="@SvcNo" id="invoiceId">
+                                </div>
+                            </dd>
+                             <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
+                                <span class="fw-normal">Command:</span>
+                            </dt>
+                            <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
+                                <input type="text" class="form-control  date-picker flatpickr-input"  value="@CommandName" readonly="readonly">
+                            </dd>
+                            
+                            <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
+                                <span class="fw-normal">Station:</span>
+                            </dt>
+                            <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2">
+                                <input type="text" class="form-control  date-picker flatpickr-input"  value="@StationName" readonly="readonly">
+                            </dd>
+                            
+                        </dl>
+                    </div>
+                </div>
+
+                <hr class="my-3 mx-n4">
+
+                <div class="row p-sm-4 p-0">
+                    <div class="mt-2 mb-3">
+@*                         <label for="largeSelect" class="form-label">Select Category</label>
+ *@                        <select id="largeSelect" class="form-select form-select-lg" asp-for="EntryCategory" asp-items="@ViewBag.EntryCategoryList">
+                            <option>Select Category</option>
+                        </select>
+                    </div>
+                </div>
+
+                <hr class="my-3 mx-n4">
+
+
+                    <h5 class="card-header">Details</h5>
+                    <div class="card-body">
+                        <textarea asp-for="EntryDetails" id="autosize-demo" rows="5" class="form-control" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 83px;"></textarea>
+                    </div>
+
+              
+                <hr class="my-3 mx-n4">
+
+
+                <div class="row" data-select2-id="7">
+                    <div class="col-md-5 order-md-0 order-1" data-select2-id="6">
+                        <div class="col-md-12 mb-md-0 mb-4 ps-0">
+
+                            <div class="mb-3 col-12">
+                                <label for="apiKey" class="form-label">Reference</label>
+                                <input asp-for="EntryReference" type="text" class="form-control" id="apiKey" name="apiKey" placeholder="IM/23/11/23/009">
+                                @*                         <div class="fv-plugins-message-container invalid-feedback"><div data-field="apiKey" data-validator="notEmpty">Please enter API key name</div></div>
+                                *@
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-primary me-2 d-grid w-100 waves-effect waves-light">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7 order-md-1 order-0">
+                        <div class="col-md-12">
+                            <div class="bg-lighter rounded p-3 mb-3 position-relative">
+                                <div class="dropdown api-key-actions">
+                                    <div class="dropdown-menu dropdown-menu-end" style="">
+                                        <a href="javascript:;" class="dropdown-item"><i class="ti ti-pencil me-2"></i>Edit</a>
+                                        <a href="javascript:;" class="dropdown-item"><i class="ti ti-trash me-2"></i>Delete</a>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <h4 class="mb-0 me-3">IM/23/11/23/009</h4>
+                                    <span class="badge bg-label-primary">56201</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <p class="me-2 mb-2 fw-semibold"> Issuance of arms and ammunition </p>
+                                    <span class="text-muted cursor-pointer"><i class="ti ti-copy ti-sm"></i></span>
+                                </div>
+                                <span class="text-muted">Created on 28 Apr 2021, 12:20pm </span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-3 mx-n4">
+
+                <div class="col-md-12 order-md-1 order-0">
+
+                <div class="card-body">
+                    <button type="submit"  class="btn btn-primary d-grid w-100 mb-2 waves-effect waves-light" data-bs-toggle="offcanvas" data-bs-target="#sendInvoiceOffcanvas">
+                        <span class="d-flex align-items-center justify-content-center text-nowrap"><i class="ti ti-send ti-xs me-1"></i>Add Entry</span>
+                    </button>
+                </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- /Invoice Add-->
+    <!-- Invoice Actions -->
+    
+    <!-- /Invoice Actions -->
+</div>
+</form>

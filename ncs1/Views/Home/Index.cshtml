@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Dashboard";
+}
+
+    
+<div class="text-center">
+@*     <img src="~/img/logo.jpg" />
+ *@    <h1 class="display-4">Welcome To NCS Platform</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div>
+            <!-- Your content to display when the user is logged in -->
+            <p>Welcome, @User.Identity.Name!</p>
+            <p>Click <a asp-area="Identity" asp-page="/Account/Register">Here</a> to Add Users or
+             <a asp-area="Identity" asp-page="/Account/Logout">Logout</a></p>
+
+        </div>
+    } 
+    else
+    {
+        <p>Click <a asp-area="Identity" asp-page="/Account/Login">Here</a> to login</p>
+
+    }
+
+
+</div>
+
+

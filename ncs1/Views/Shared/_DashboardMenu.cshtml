@@ -1,0 +1,43 @@
+﻿<aside id="layout-menu" class="layout-menu-horizontal menu-horizontal menu bg-menu-theme flex-grow-0">
+    <div class="container-xxl d-flex h-100">
+        <ul class="menu-inner py-1">
+            <!-- Page -->
+            <li class="menu-item">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-layout-grid"></i>
+                    <div data-i18n="Home">Home</div>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a asp-area="" asp-controller="UserMgt" asp-action="Index" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-settings"></i>
+                    <div data-i18n="UserMgt">UserManagement</div>
+                </a>
+            </li>
+
+            <li class="menu-item open">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-table"></i>
+                    <div data-i18n="Station Diary">Station Diary</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a asp-area="" asp-controller="Entry" asp-action="Add" class="menu-link">
+                            <i class="menu-icon tf-icons ti ti-forms"></i>
+                            <div data-i18n="Add Entry">Add Entry</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a asp-area="" asp-controller="Entry" asp-action="SingleEntry" class="menu-link">
+                            <i class="menu-icon tf-icons ti ti-menu-2"></i>
+                            <div data-i18n="View">View</div>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</aside>
